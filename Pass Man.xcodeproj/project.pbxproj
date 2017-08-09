@@ -38,6 +38,7 @@
 		452B82DF1F3B106400AF9AC6 /* parse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = parse.hpp; sourceTree = "<group>"; };
 		452B82E11F3B10EF00AF9AC6 /* passwords.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = passwords.cpp; sourceTree = "<group>"; };
 		452B82E21F3B10EF00AF9AC6 /* passwords.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = passwords.hpp; sourceTree = "<group>"; };
+		452B82E41F3B16BB00AF9AC6 /* commands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = commands.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +80,7 @@
 				452B82DF1F3B106400AF9AC6 /* parse.hpp */,
 				452B82E11F3B10EF00AF9AC6 /* passwords.cpp */,
 				452B82E21F3B10EF00AF9AC6 /* passwords.hpp */,
+				452B82E41F3B16BB00AF9AC6 /* commands.txt */,
 			);
 			path = "Pass Man";
 			sourceTree = "<group>";

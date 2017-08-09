@@ -1,0 +1,38 @@
+help
+  Prints a list of all commands and what they do.
+
+open <key> <file>
+  Opens a file and decrypts it. Once opened, the file can be manipulated. If the
+  file either doesn't exist or is empty, then a new database is created.
+
+flush
+  Writes all changes to the file (if it exists).
+
+quit
+  Writes all changes to the file (if it exists) and exits.
+
+search <sub_string>
+  Searchs for passwords by name.
+
+list
+  Lists the names of every password.
+
+count
+  Prints the number of passwords in the database.
+
+create <name> <password>
+  Creates a new entry in the database.
+
+change <name> <new_password>
+  If name is an unambiguous substring then that password is changed. If name is
+  a number then the password in the most recent search with that index is
+  changed.
+
+rename <name> <new_name>
+  Renames a password. Name is as described in "change".
+
+get <name>
+  Prints a password. Name is as described in "change".
+
+copy <name>
+  Copies a password to the clipboard. Name is as described in "change".
