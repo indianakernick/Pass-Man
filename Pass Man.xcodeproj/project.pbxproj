@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		452B82CB1F3AFD3C00AF9AC6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82CA1F3AFD3C00AF9AC6 /* main.cpp */; };
 		452B82D41F3AFE4B00AF9AC6 /* passman in CopyFiles */ = {isa = PBXBuildFile; fileRef = 452B82C71F3AFD3C00AF9AC6 /* passman */; };
-		452B82DA1F3B090200AF9AC6 /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 452B82D91F3B090200AF9AC6 /* libSDL2-2.0.0.dylib */; };
 		452B82DD1F3B0C1800AF9AC6 /* encrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82DB1F3B0C1800AF9AC6 /* encrypt.cpp */; };
 		452B82E01F3B106400AF9AC6 /* parse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82DE1F3B106400AF9AC6 /* parse.cpp */; };
 		452B82E31F3B10EF00AF9AC6 /* passwords.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82E11F3B10EF00AF9AC6 /* passwords.cpp */; };
@@ -46,7 +45,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				452B82DA1F3B090200AF9AC6 /* libSDL2-2.0.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,11 +251,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				HEADER_SEARCH_PATHS = "/usr/local/Cellar/sdl2/**";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/usr/local/Cellar/sdl2/**",
-				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wall",
@@ -276,11 +269,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				HEADER_SEARCH_PATHS = "/usr/local/Cellar/sdl2/**";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/usr/local/Cellar/sdl2/**",
-				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wall",

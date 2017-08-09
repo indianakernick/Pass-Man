@@ -9,6 +9,6 @@
 #ifndef parse_hpp
 #define parse_hpp
 
-v parse(const std::string &)
+//v parse(const std::string &)
 
 #endif

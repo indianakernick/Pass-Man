@@ -7,8 +7,15 @@
 //
 
 #include <iostream>
+#include <cstdio>
 
 int main(int, const char **) {
+  
+  std::FILE *file = popen("pbcopy", "w");
+  if (file != nullptr) {
+    std::fputs("Hello, World!", file);
+  }
+  pclose(file);
   
   return 0;
 }

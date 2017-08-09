@@ -5,6 +5,9 @@ open <key> <file>
   Opens a file and decrypts it. Once opened, the file can be manipulated. If the
   file either doesn't exist or is empty, then a new database is created.
 
+clear
+  Removed every entry from the database.
+
 flush
   Writes all changes to the file (if it exists).
 
@@ -20,8 +23,14 @@ list
 count
   Prints the number of passwords in the database.
 
+gen <length>
+  Prints a randomly generated string
+
 create <name> <password>
   Creates a new entry in the database.
+
+create_gen <name> <length>
+  Generates a passwords and puts it into the database.
 
 change <name> <new_password>
   If name is an unambiguous substring then that password is changed. If name is
@@ -36,3 +45,6 @@ get <name>
 
 copy <name>
   Copies a password to the clipboard. Name is as described in "change".
+
+rem <name>
+  Removes a password from the database. Name is as described in "change".
