@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		452B82CB1F3AFD3C00AF9AC6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82CA1F3AFD3C00AF9AC6 /* main.cpp */; };
 		452B82D41F3AFE4B00AF9AC6 /* passman in CopyFiles */ = {isa = PBXBuildFile; fileRef = 452B82C71F3AFD3C00AF9AC6 /* passman */; };
+		452B82DA1F3B090200AF9AC6 /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 452B82D91F3B090200AF9AC6 /* libSDL2-2.0.0.dylib */; };
+		452B82DD1F3B0C1800AF9AC6 /* encrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82DB1F3B0C1800AF9AC6 /* encrypt.cpp */; };
+		452B82E01F3B106400AF9AC6 /* parse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82DE1F3B106400AF9AC6 /* parse.cpp */; };
+		452B82E31F3B10EF00AF9AC6 /* passwords.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82E11F3B10EF00AF9AC6 /* passwords.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +31,13 @@
 /* Begin PBXFileReference section */
 		452B82C71F3AFD3C00AF9AC6 /* passman */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = passman; sourceTree = BUILT_PRODUCTS_DIR; };
 		452B82CA1F3AFD3C00AF9AC6 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		452B82D91F3B090200AF9AC6 /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../../../../../../usr/local/Cellar/sdl2/2.0.5/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
+		452B82DB1F3B0C1800AF9AC6 /* encrypt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = encrypt.cpp; sourceTree = "<group>"; };
+		452B82DC1F3B0C1800AF9AC6 /* encrypt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = encrypt.hpp; sourceTree = "<group>"; };
+		452B82DE1F3B106400AF9AC6 /* parse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parse.cpp; sourceTree = "<group>"; };
+		452B82DF1F3B106400AF9AC6 /* parse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = parse.hpp; sourceTree = "<group>"; };
+		452B82E11F3B10EF00AF9AC6 /* passwords.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = passwords.cpp; sourceTree = "<group>"; };
+		452B82E21F3B10EF00AF9AC6 /* passwords.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = passwords.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				452B82DA1F3B090200AF9AC6 /* libSDL2-2.0.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +57,7 @@
 			children = (
 				452B82C91F3AFD3C00AF9AC6 /* Pass Man */,
 				452B82C81F3AFD3C00AF9AC6 /* Products */,
+				452B82D81F3B090200AF9AC6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,8 +73,22 @@
 			isa = PBXGroup;
 			children = (
 				452B82CA1F3AFD3C00AF9AC6 /* main.cpp */,
+				452B82DB1F3B0C1800AF9AC6 /* encrypt.cpp */,
+				452B82DC1F3B0C1800AF9AC6 /* encrypt.hpp */,
+				452B82DE1F3B106400AF9AC6 /* parse.cpp */,
+				452B82DF1F3B106400AF9AC6 /* parse.hpp */,
+				452B82E11F3B10EF00AF9AC6 /* passwords.cpp */,
+				452B82E21F3B10EF00AF9AC6 /* passwords.hpp */,
 			);
 			path = "Pass Man";
+			sourceTree = "<group>";
+		};
+		452B82D81F3B090200AF9AC6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				452B82D91F3B090200AF9AC6 /* libSDL2-2.0.0.dylib */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -121,7 +148,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				452B82E31F3B10EF00AF9AC6 /* passwords.cpp in Sources */,
 				452B82CB1F3AFD3C00AF9AC6 /* main.cpp in Sources */,
+				452B82DD1F3B0C1800AF9AC6 /* encrypt.cpp in Sources */,
+				452B82E01F3B106400AF9AC6 /* parse.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,7 +250,12 @@
 		452B82CF1F3AFD3C00AF9AC6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				HEADER_SEARCH_PATHS = "/usr/local/Cellar/sdl2/**";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/usr/local/Cellar/sdl2/**",
+				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wall",
@@ -229,6 +264,7 @@
 					"-Wpedantic",
 					"-Wextra-semi",
 					"-Wno-documentation",
+					"-std=c++1z",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -237,7 +273,12 @@
 		452B82D01F3AFD3C00AF9AC6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				HEADER_SEARCH_PATHS = "/usr/local/Cellar/sdl2/**";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/usr/local/Cellar/sdl2/**",
+				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wall",
@@ -246,6 +287,7 @@
 					"-Wpedantic",
 					"-Wextra-semi",
 					"-Wno-documentation",
+					"-std=c++1z",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

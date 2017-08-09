@@ -1,14 +1,14 @@
 //
-//  main.cpp
+//  parse.hpp
 //  Pass Man
 //
 //  Created by Indi Kernick on 9/8/17.
 //  Copyright © 2017 Indi Kernick. All rights reserved.
 //
 
-#include <iostream>
+#ifndef parse_hpp
+#define parse_hpp
 
-int main(int, const char **) {
-  
-  return 0;
-}
+v parse(const std::string &)
+
+#endif
