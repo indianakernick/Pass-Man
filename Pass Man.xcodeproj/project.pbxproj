@@ -8,22 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		452B82CB1F3AFD3C00AF9AC6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82CA1F3AFD3C00AF9AC6 /* main.cpp */; };
+		452B82D41F3AFE4B00AF9AC6 /* passman in CopyFiles */ = {isa = PBXBuildFile; fileRef = 452B82C71F3AFD3C00AF9AC6 /* passman */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		452B82C51F3AFD3C00AF9AC6 /* CopyFiles */ = {
+		452B82D31F3AFE3E00AF9AC6 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
+			dstPath = /usr/local/bin;
 			dstSubfolderSpec = 0;
 			files = (
+				452B82D41F3AFE4B00AF9AC6 /* passman in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		452B82C71F3AFD3C00AF9AC6 /* Pass Man */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Pass Man"; sourceTree = BUILT_PRODUCTS_DIR; };
+		452B82C71F3AFD3C00AF9AC6 /* passman */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = passman; sourceTree = BUILT_PRODUCTS_DIR; };
 		452B82CA1F3AFD3C00AF9AC6 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,7 +51,7 @@
 		452B82C81F3AFD3C00AF9AC6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				452B82C71F3AFD3C00AF9AC6 /* Pass Man */,
+				452B82C71F3AFD3C00AF9AC6 /* passman */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,21 +67,21 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		452B82C61F3AFD3C00AF9AC6 /* Pass Man */ = {
+		452B82C61F3AFD3C00AF9AC6 /* passman */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 452B82CE1F3AFD3C00AF9AC6 /* Build configuration list for PBXNativeTarget "Pass Man" */;
+			buildConfigurationList = 452B82CE1F3AFD3C00AF9AC6 /* Build configuration list for PBXNativeTarget "passman" */;
 			buildPhases = (
 				452B82C31F3AFD3C00AF9AC6 /* Sources */,
 				452B82C41F3AFD3C00AF9AC6 /* Frameworks */,
-				452B82C51F3AFD3C00AF9AC6 /* CopyFiles */,
+				452B82D31F3AFE3E00AF9AC6 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Pass Man";
+			name = passman;
 			productName = "Pass Man";
-			productReference = 452B82C71F3AFD3C00AF9AC6 /* Pass Man */;
+			productReference = 452B82C71F3AFD3C00AF9AC6 /* passman */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -109,7 +111,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				452B82C61F3AFD3C00AF9AC6 /* Pass Man */,
+				452B82C61F3AFD3C00AF9AC6 /* passman */,
 			);
 		};
 /* End PBXProject section */
@@ -218,6 +220,16 @@
 		452B82CF1F3AFD3C00AF9AC6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wall",
+					"-Wextra",
+					"-Weffc++",
+					"-Wpedantic",
+					"-Wextra-semi",
+					"-Wno-documentation",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -225,6 +237,16 @@
 		452B82D01F3AFD3C00AF9AC6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wall",
+					"-Wextra",
+					"-Weffc++",
+					"-Wpedantic",
+					"-Wextra-semi",
+					"-Wno-documentation",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -241,7 +263,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		452B82CE1F3AFD3C00AF9AC6 /* Build configuration list for PBXNativeTarget "Pass Man" */ = {
+		452B82CE1F3AFD3C00AF9AC6 /* Build configuration list for PBXNativeTarget "passman" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				452B82CF1F3AFD3C00AF9AC6 /* Debug */,
