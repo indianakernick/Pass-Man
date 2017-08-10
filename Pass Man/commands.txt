@@ -6,7 +6,7 @@ open <key> <file>
   file either doesn't exist or is empty, then a new database is created.
 
 clear
-  Removed every entry from the database.
+  Removes every entry from the database.
 
 flush
   Writes all changes to the file (if it exists).
