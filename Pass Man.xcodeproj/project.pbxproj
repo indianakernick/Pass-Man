@@ -42,7 +42,6 @@
 		452B82DF1F3B106400AF9AC6 /* parse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = parse.hpp; sourceTree = "<group>"; };
 		452B82E11F3B10EF00AF9AC6 /* passwords.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = passwords.cpp; sourceTree = "<group>"; };
 		452B82E21F3B10EF00AF9AC6 /* passwords.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = passwords.hpp; sourceTree = "<group>"; };
-		452B82E41F3B16BB00AF9AC6 /* commands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = commands.txt; sourceTree = "<group>"; };
 		452B82E51F3C386300AF9AC6 /* interpret commands.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "interpret commands.cpp"; sourceTree = "<group>"; };
 		452B82E61F3C386300AF9AC6 /* interpret commands.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "interpret commands.hpp"; sourceTree = "<group>"; };
 		452B82E81F3C393D00AF9AC6 /* write to clipboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "write to clipboard.cpp"; sourceTree = "<group>"; };
@@ -103,7 +102,6 @@
 				452B82EC1F3C3BE800AF9AC6 /* generate password.hpp */,
 				452B82EE1F3C401200AF9AC6 /* generate key.cpp */,
 				452B82EF1F3C401200AF9AC6 /* generate key.hpp */,
-				452B82E41F3B16BB00AF9AC6 /* commands.txt */,
 			);
 			path = "Pass Man";
 			sourceTree = "<group>";

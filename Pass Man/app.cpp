@@ -12,11 +12,18 @@
 #include "interpret commands.hpp"
 
 void runApp() {
+  std::cin.exceptions(0xFF);
+  std::cout.exceptions(0xFF);
+
   CommandInterpreter interpreter;
-  std::string command;
+  char command[256];
   do {
     interpreter.prefix();
-    std::cin >> command;
-    interpreter.interpret(command);
+    std::cin.getline(command, sizeof(command) / sizeof(char));
+    try {
+      interpreter.interpret(command);
+    } catch (std::exception &e) {
+      std::cout << e.what() << '\n';
+    }
   } while (interpreter.shouldContinue());
 }
