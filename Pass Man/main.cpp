@@ -7,15 +7,12 @@
 //
 
 #include <iostream>
-#include <cstdio>
+
+#include "generate password.hpp"
 
 int main(int, const char **) {
   
-  std::FILE *file = popen("pbcopy", "w");
-  if (file != nullptr) {
-    std::fputs("Hello, World!", file);
-  }
-  pclose(file);
+  std::cout << generatePassword(32) << '\n';
   
   return 0;
 }
