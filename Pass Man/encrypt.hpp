@@ -14,6 +14,4 @@
 std::string decryptFile(uint64_t, const char *);
 void encryptFile(uint64_t, const char *, const std::string &);
 
-uint64_t makeKey();
-
 #endif

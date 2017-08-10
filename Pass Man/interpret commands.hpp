@@ -15,14 +15,18 @@
 
 class CommandInterpreter {
 public:
-  CommandInterpreter() = default;
+  CommandInterpreter();
+  ~CommandInterpreter();
   
+  void prefix();
   void interpret(std::experimental::string_view);
+  bool shouldContinue() const;
 
 private:
   size_t key = 0;
   std::string file;
   std::experimental::optional<Passwords> passwords;
+  bool quit = false;
 };
 
 #endif

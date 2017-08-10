@@ -7,12 +7,14 @@
 //
 
 #include <iostream>
-
-#include "generate password.hpp"
+#include "app.hpp"
 
 int main(int, const char **) {
-  
-  std::cout << generatePassword(32) << '\n';
-  
+  try {
+    runApp();
+  } catch (std::exception &e) {
+    std::cerr << e.what() << '\n';
+    return 1;
+  }
   return 0;
 }

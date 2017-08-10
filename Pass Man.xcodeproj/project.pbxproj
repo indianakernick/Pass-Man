@@ -16,6 +16,7 @@
 		452B82EA1F3C393D00AF9AC6 /* write to clipboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82E81F3C393D00AF9AC6 /* write to clipboard.cpp */; };
 		452B82ED1F3C3BE800AF9AC6 /* generate password.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82EB1F3C3BE800AF9AC6 /* generate password.cpp */; };
 		452B82F01F3C401200AF9AC6 /* generate key.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82EE1F3C401200AF9AC6 /* generate key.cpp */; };
+		452B82F31F3C40D300AF9AC6 /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82F11F3C40D300AF9AC6 /* app.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,6 +51,8 @@
 		452B82EC1F3C3BE800AF9AC6 /* generate password.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "generate password.hpp"; sourceTree = "<group>"; };
 		452B82EE1F3C401200AF9AC6 /* generate key.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "generate key.cpp"; sourceTree = "<group>"; };
 		452B82EF1F3C401200AF9AC6 /* generate key.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "generate key.hpp"; sourceTree = "<group>"; };
+		452B82F11F3C40D300AF9AC6 /* app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = app.cpp; sourceTree = "<group>"; };
+		452B82F21F3C40D300AF9AC6 /* app.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = app.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +87,8 @@
 			isa = PBXGroup;
 			children = (
 				452B82CA1F3AFD3C00AF9AC6 /* main.cpp */,
+				452B82F11F3C40D300AF9AC6 /* app.cpp */,
+				452B82F21F3C40D300AF9AC6 /* app.hpp */,
 				452B82DB1F3B0C1800AF9AC6 /* encrypt.cpp */,
 				452B82DC1F3B0C1800AF9AC6 /* encrypt.hpp */,
 				452B82DE1F3B106400AF9AC6 /* parse.cpp */,
@@ -168,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				452B82F31F3C40D300AF9AC6 /* app.cpp in Sources */,
 				452B82E31F3B10EF00AF9AC6 /* passwords.cpp in Sources */,
 				452B82CB1F3AFD3C00AF9AC6 /* main.cpp in Sources */,
 				452B82DD1F3B0C1800AF9AC6 /* encrypt.cpp in Sources */,

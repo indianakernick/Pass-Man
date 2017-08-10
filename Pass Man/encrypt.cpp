@@ -53,9 +53,3 @@ void encryptFile(const uint64_t key, const char *path, const std::string &str) {
     std::fputc(dist(gen) ^ *b, file.get());
   }
 }
-
-uint64_t makeKey() {
-  static std::random_device gen;
-  std::uniform_int_distribution<uint64_t> dist;
-  return dist(gen);
-}
