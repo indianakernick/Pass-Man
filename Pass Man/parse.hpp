@@ -9,6 +9,10 @@
 #ifndef parse_hpp
 #define parse_hpp
 
-//v parse(const std::string &)
+#include "passwords.hpp"
+#include <experimental/string_view>
+
+Passwords readPasswords(std::experimental::string_view);
+std::string writePasswords(const Passwords &);
 
 #endif

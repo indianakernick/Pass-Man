@@ -10,8 +10,9 @@
 #define encrypt_hpp
 
 #include <string>
+#include <experimental/string_view>
 
-std::string decryptFile(uint64_t, const char *);
-void encryptFile(uint64_t, const char *, const std::string &);
+std::string decryptFile(uint64_t, std::experimental::string_view);
+void encryptFile(uint64_t, std::experimental::string_view, std::experimental::string_view);
 
 #endif

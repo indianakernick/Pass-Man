@@ -17,6 +17,11 @@ using StrToStrMap = std::unordered_map<std::string, std::string>;
 
 struct Passwords {
   explicit Passwords(StrToStrMap &&);
+  Passwords(const Passwords &) = delete;
+  Passwords(Passwords &&) = default;
+  
+  Passwords &operator=(const Passwords &) = delete;
+  Passwords &operator=(Passwords &&) = default;
   
   StrToStrMap map;
   std::vector<std::string> searchResults;

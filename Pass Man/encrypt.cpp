@@ -22,8 +22,11 @@ File openFile(const char *path, const char *options) {
   }
 }
 
-std::string decryptFile(const uint64_t key, const char *path) {
-  File file = openFile(path, "rb");
+std::string decryptFile(
+  const uint64_t key,
+  const std::experimental::string_view path
+) {
+  File file = openFile(path.data(), "rb");
   
   std::mt19937_64 gen(key);
   std::uniform_int_distribution<uint8_t> dist;
@@ -43,8 +46,12 @@ std::string decryptFile(const uint64_t key, const char *path) {
   return str;
 }
 
-void encryptFile(const uint64_t key, const char *path, const std::string &str) {
-  File file = openFile(path, "wb");
+void encryptFile(
+  const uint64_t key,
+  const std::experimental::string_view path,
+  const std::experimental::string_view str
+) {
+  File file = openFile(path.data(), "wb");
   
   std::mt19937_64 gen(key);
   std::uniform_int_distribution<uint8_t> dist;
