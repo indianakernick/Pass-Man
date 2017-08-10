@@ -1,6 +1,12 @@
 help
   Prints a list of all commands and what they do.
 
+gen_key
+  Generates an encryption key
+
+gen_key_copy
+  Generates an encryption key and copies it to the clipboard
+
 open <key> <file>
   Opens a file and decrypts it. Once opened, the file can be manipulated. If the
   file either doesn't exist or is empty, then a new database is created.

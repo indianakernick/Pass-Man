@@ -15,6 +15,7 @@
 		452B82E71F3C386300AF9AC6 /* interpret commands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82E51F3C386300AF9AC6 /* interpret commands.cpp */; };
 		452B82EA1F3C393D00AF9AC6 /* write to clipboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82E81F3C393D00AF9AC6 /* write to clipboard.cpp */; };
 		452B82ED1F3C3BE800AF9AC6 /* generate password.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82EB1F3C3BE800AF9AC6 /* generate password.cpp */; };
+		452B82F01F3C401200AF9AC6 /* generate key.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452B82EE1F3C401200AF9AC6 /* generate key.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +48,8 @@
 		452B82E91F3C393D00AF9AC6 /* write to clipboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "write to clipboard.hpp"; sourceTree = "<group>"; };
 		452B82EB1F3C3BE800AF9AC6 /* generate password.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "generate password.cpp"; sourceTree = "<group>"; };
 		452B82EC1F3C3BE800AF9AC6 /* generate password.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "generate password.hpp"; sourceTree = "<group>"; };
+		452B82EE1F3C401200AF9AC6 /* generate key.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "generate key.cpp"; sourceTree = "<group>"; };
+		452B82EF1F3C401200AF9AC6 /* generate key.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "generate key.hpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,8 @@
 				452B82E91F3C393D00AF9AC6 /* write to clipboard.hpp */,
 				452B82EB1F3C3BE800AF9AC6 /* generate password.cpp */,
 				452B82EC1F3C3BE800AF9AC6 /* generate password.hpp */,
+				452B82EE1F3C401200AF9AC6 /* generate key.cpp */,
+				452B82EF1F3C401200AF9AC6 /* generate key.hpp */,
 				452B82E41F3B16BB00AF9AC6 /* commands.txt */,
 			);
 			path = "Pass Man";
@@ -168,6 +173,7 @@
 				452B82DD1F3B0C1800AF9AC6 /* encrypt.cpp in Sources */,
 				452B82EA1F3C393D00AF9AC6 /* write to clipboard.cpp in Sources */,
 				452B82ED1F3C3BE800AF9AC6 /* generate password.cpp in Sources */,
+				452B82F01F3C401200AF9AC6 /* generate key.cpp in Sources */,
 				452B82E01F3B106400AF9AC6 /* parse.cpp in Sources */,
 				452B82E71F3C386300AF9AC6 /* interpret commands.cpp in Sources */,
 			);
