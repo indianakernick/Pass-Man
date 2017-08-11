@@ -32,6 +32,11 @@ private:
   void clearCommand();
   void flushCommand();
   void quitCommand();
+  
+  void searchCommand(std::experimental::string_view);
+  void listCommand();
+  void countCommand();
+  void genCommand(std::experimental::string_view);
 };
 
 #endif

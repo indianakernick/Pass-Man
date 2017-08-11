@@ -156,6 +156,14 @@ void CommandInterpreter::interpret(const std::experimental::string_view command)
     flushCommand();
   } else if (COMMAND_IS(quit)) {
     quitCommand();
+  } else if (COMMAND_IS(search)) {
+    searchCommand(command.substr(name.size()));
+  } else if (COMMAND_IS(list)) {
+    listCommand();
+  } else if (COMMAND_IS(count)) {
+    countCommand();
+  } else if (COMMAND_IS(gen)) {
+    genCommand(command.substr(name.size()));
   } else {
     unknownCommand(command);
   }
@@ -277,22 +285,98 @@ void CommandInterpreter::openCommand(
   key = newKey;
   file = std::move(newFile);
   passwords.emplace(readPasswords(decryptFile(key, file)));
+  
+  std::cout << "Success!\n";
 }
 
 void CommandInterpreter::clearCommand() {
   if (passwords) {
     passwords->map.clear();
     passwords->searchResults.clear();
+    std::cout << "Database cleared\n";
   }
 }
 
 void CommandInterpreter::flushCommand() {
   if (passwords) {
     encryptFile(key, file, writePasswords(*passwords));
+    std::cout << "Database flushed\n";
   }
 }
 
 void CommandInterpreter::quitCommand() {
   flushCommand();
   quit = true;
+}
+
+void CommandInterpreter::searchCommand(std::experimental::string_view arguments) {
+  if (!passwords) {
+    std::cout << "Database is uninitialized. Use the open command to initialize.\n";
+    return;
+  }
+  
+  if (!nextArg(arguments, "search <sub_string>")) {
+    return;
+  }
+  
+  const std::string subString = readString(arguments);
+  if (subString.empty()) {
+    std::cout << "Invalid substring\n";
+    return;
+  }
+  
+  passwords->searchResults.clear();
+  
+  for (auto p = passwords->map.cbegin(); p != passwords->map.cend(); ++p) {
+    constexpr size_t npos = std::experimental::string_view::npos;
+    if (p->first.find(subString) != npos) {
+      std::cout.width(8);
+      std::cout << passwords->searchResults.size() << " - " << p->first << '\n';
+      passwords->searchResults.push_back(p->first);
+    }
+  }
+  
+  if (passwords->searchResults.empty()) {
+    std::cout << "No password names where found containing the substring:\n\"";
+    std::cout << subString << "\"\n";
+  }
+}
+
+void CommandInterpreter::listCommand() {
+  if (!passwords) {
+    std::cout << "Database is uninitialized. Use the open command to initialize.\n";
+  } else if (passwords->map.empty()) {
+    std::cout << "Database is empty\n";
+  } else {
+    for (auto p = passwords->map.cbegin(); p != passwords->map.cend(); ++p) {
+      std::cout << p->first << '\n';
+    }
+  }
+}
+
+void CommandInterpreter::countCommand() {
+  if (!passwords) {
+    std::cout << "Database is uninitialized. Use the open command to initialize.\n";
+  } else if (passwords->map.empty()) {
+    std::cout << "Database is empty\n";
+  } else if (passwords->map.size() == 1) {
+    std::cout << "Database contains 1 password\n";
+  } else {
+    std::cout << "Database contains " << passwords->map.size() << "passwords\n";
+  }
+}
+
+void CommandInterpreter::genCommand(std::experimental::string_view arguments) {
+  if (!nextArg(arguments, "gen <length>")) {
+    return;
+  }
+  
+  bool failed = false;
+  const uint64_t size = readNumber(arguments, failed);
+  if (size == 0 || failed) {
+    std::cout << "Invalid length\n";
+    return;
+  }
+  
+  std::cout << "Random password: " << generatePassword(size) << '\n';
 }
