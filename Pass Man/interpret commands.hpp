@@ -27,6 +27,11 @@ private:
   std::string file;
   std::experimental::optional<Passwords> passwords;
   bool quit = false;
+  
+  void openCommand(std::experimental::string_view);
+  void clearCommand();
+  void flushCommand();
+  void quitCommand();
 };
 
 #endif

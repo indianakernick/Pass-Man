@@ -148,6 +148,14 @@ void CommandInterpreter::interpret(const std::experimental::string_view command)
     genKeyCommand();
   } else if (COMMAND_IS(gen_key_copy)) {
     genKeyCopyCommand();
+  } else if (COMMAND_IS(open)) {
+    openCommand(command.substr(name.size()));
+  } else if (COMMAND_IS(clear)) {
+    clearCommand();
+  } else if (COMMAND_IS(flush)) {
+    flushCommand();
+  } else if (COMMAND_IS(quit)) {
+    quitCommand();
   } else {
     unknownCommand(command);
   }
@@ -159,4 +167,132 @@ void CommandInterpreter::interpret(const std::experimental::string_view command)
 
 bool CommandInterpreter::shouldContinue() const {
   return !quit;
+}
+
+namespace {
+  uint64_t readNumber(std::experimental::string_view &args, bool &failed) {
+    if (args.size() == 0) {
+      failed = true;
+      return 0;
+    }
+    char *end;
+    const uint64_t arg = std::strtoull(args.data(), &end, 0);
+    if (errno == ERANGE) {
+      failed = true;
+      return 0;
+    }
+    args.remove_prefix(end - args.data());
+    return arg;
+  }
+
+  std::string readString(std::experimental::string_view &args) {
+    if (args.size() == 0) {
+      return {};
+    }
+    
+    std::string arg;
+    bool prevBackSlash = false;
+    
+    for (size_t i = 0; i != args.size(); ++i) {
+      const char c = args[i];
+      if (c == ' ') {
+        if (prevBackSlash) {
+          arg.push_back(' ');
+        } else {
+          break;
+        }
+      } else if (c == '\\') {
+        if (prevBackSlash) {
+          arg.push_back('\\');
+          prevBackSlash = false;
+        } else {
+          prevBackSlash = true;
+        }
+      } else {
+        arg.push_back(c);
+        prevBackSlash = false;
+      }
+    }
+    
+    return arg;
+  }
+
+  bool fileExists(const char *const path) {
+    std::unique_ptr<std::FILE, decltype(&std::fclose)> file(
+      fopen(path, "r"),
+      &std::fclose
+    );
+    return bool(file);
+  }
+
+  bool nextArg(std::experimental::string_view &args, const char *signature) {
+    if (args.size() == 0 || args[0] != ' ') {
+      std::cout << "Command signature is:\n" << signature << '\n';
+      return false;
+    }
+    args.remove_prefix(1);
+    return true;
+  }
+}
+
+void CommandInterpreter::openCommand(
+  std::experimental::string_view arguments
+) {
+  if (!nextArg(arguments, "open <key> <file>")) {
+    return;
+  }
+
+  bool failed = false;
+  const uint64_t newKey = readNumber(arguments, failed);
+  if (newKey == 0 || failed) {
+    std::cout << "Invalid key\n";
+    return;
+  }
+  
+  if (!nextArg(arguments, "open <key> <file>")) {
+    return;
+  }
+  
+  const std::string newFile = readString(arguments);
+  if (newFile.size() == 0) {
+    std::cout << "Invalid file path\n";
+    return;
+  }
+  
+  if (!fileExists(newFile.c_str())) {
+    std::FILE *fileStream = std::fopen(newFile.c_str(), "w");
+    if (fileStream == nullptr) {
+      std::cout << "Failed to create file \"" << newFile.c_str() << "\"\n";
+      return;
+    } else {
+      std::cout << "Created a new file named \"" << newFile.c_str() << "\"\n";
+    }
+    std::fclose(fileStream);
+  }
+  
+  if (passwords) {
+    flushCommand();
+  }
+  
+  key = newKey;
+  file = std::move(newFile);
+  passwords.emplace(readPasswords(decryptFile(key, file)));
+}
+
+void CommandInterpreter::clearCommand() {
+  if (passwords) {
+    passwords->map.clear();
+    passwords->searchResults.clear();
+  }
+}
+
+void CommandInterpreter::flushCommand() {
+  if (passwords) {
+    encryptFile(key, file, writePasswords(*passwords));
+  }
+}
+
+void CommandInterpreter::quitCommand() {
+  flushCommand();
+  quit = true;
 }
