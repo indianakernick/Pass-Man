@@ -7,6 +7,3 @@
 //
 
 #include "passwords.hpp"
-
-Passwords::Passwords(StrToStrMap &&map)
-  : map(std::move(map)) {}

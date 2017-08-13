@@ -67,7 +67,7 @@ change_s <index> <new_password>
 rename <name> <new_name>
   If name is an unambiguous substring then that password is renamed.
 
-rename_s <index> <new_password>
+rename_s <index> <new_name>
   The password in the most recent search with that index is renamed.
   
 get <name>
@@ -189,6 +189,14 @@ void CommandInterpreter::interpret(const std::experimental::string_view command)
     changeCommand(command.substr(name.size()));
   } else if (COMMAND_IS(change_s)) {
     changeSCommand(command.substr(name.size()));
+  } else if (COMMAND_IS(rename)) {
+    renameCommand(command.substr(name.size()));
+  } else if (COMMAND_IS(rename_s)) {
+    renameSCommand(command.substr(name.size()));
+  } else if (COMMAND_IS(get)) {
+    getCommand(command.substr(name.size()));
+  } else if (COMMAND_IS(get_s)) {
+    getSCommand(command.substr(name.size()));
   } else {
     unknownCommand(command);
   }
@@ -308,6 +316,7 @@ void CommandInterpreter::openCommand(
   }
   
   passwords.emplace(readPasswords(decryptFile(newKey, newFile)));
+  searchResults.clear();
   key = newKey;
   file = std::move(newFile);
   
@@ -316,8 +325,8 @@ void CommandInterpreter::openCommand(
 
 void CommandInterpreter::clearCommand() {
   if (passwords) {
-    passwords->map.clear();
-    passwords->searchResults.clear();
+    passwords->clear();
+    searchResults.clear();
     std::cout << "Database cleared\n";
   }
 }
@@ -346,17 +355,17 @@ void CommandInterpreter::searchCommand(std::experimental::string_view arguments)
   nextArg(arguments, "search <sub_string>");
   const std::string subString = readString(arguments);
   
-  passwords->searchResults.clear();
+  searchResults.clear();
   
-  for (auto p = passwords->map.cbegin(); p != passwords->map.cend(); ++p) {
+  for (auto p = passwords->begin(); p != passwords->end(); ++p) {
     if (p->first.find(subString) != std::experimental::string_view::npos) {
       std::cout.width(4);
-      std::cout << passwords->searchResults.size() << " - " << p->first << '\n';
-      passwords->searchResults.push_back(p->first);
+      std::cout << searchResults.size() << " - " << p->first << '\n';
+      searchResults.push_back(p->first);
     }
   }
   
-  if (passwords->searchResults.empty()) {
+  if (searchResults.empty()) {
     std::cout << "No password names where found containing the substring:\n\"";
     std::cout << subString << "\"\n";
   }
@@ -365,10 +374,10 @@ void CommandInterpreter::searchCommand(std::experimental::string_view arguments)
 void CommandInterpreter::listCommand() const {
   expectInit();
   
-  if (passwords->map.empty()) {
+  if (passwords->empty()) {
     std::cout << "Database is empty\n";
   } else {
-    for (auto p = passwords->map.cbegin(); p != passwords->map.cend(); ++p) {
+    for (auto p = passwords->cbegin(); p != passwords->cend(); ++p) {
       std::cout << p->first << '\n';
     }
   }
@@ -377,12 +386,12 @@ void CommandInterpreter::listCommand() const {
 void CommandInterpreter::countCommand() const {
   expectInit();
   
-  if (passwords->map.empty()) {
+  if (passwords->empty()) {
     std::cout << "Database is empty\n";
-  } else if (passwords->map.size() == 1) {
+  } else if (passwords->size() == 1) {
     std::cout << "Database contains 1 password\n";
   } else {
-    std::cout << "Database contains " << passwords->map.size() << " passwords\n";
+    std::cout << "Database contains " << passwords->size() << " passwords\n";
   }
 }
 
@@ -393,16 +402,16 @@ void CommandInterpreter::genCommand(std::experimental::string_view arguments) co
   std::cout << "Random password: " << generatePassword(size) << '\n';
 }
 
-StrToStrMap::iterator CommandInterpreter::uniqueSearch(
+Passwords::iterator CommandInterpreter::uniqueSearch(
   const std::experimental::string_view substring
 ) {
   expectInit();
   
-  StrToStrMap::iterator iter = passwords->map.end();
+  Passwords::iterator iter = passwords->end();
   
-  for (auto p = passwords->map.begin(); p != passwords->map.end(); ++p) {
+  for (auto p = passwords->begin(); p != passwords->end(); ++p) {
     if (p->first.find(substring.data(), 0, substring.size()) != std::string::npos) {
-      if (iter == passwords->map.end()) {
+      if (iter == passwords->end()) {
         iter = p;
       } else {
         throw std::runtime_error("More that one password name contains the substring \"" + substring.to_string() + "\"");
@@ -410,7 +419,7 @@ StrToStrMap::iterator CommandInterpreter::uniqueSearch(
     }
   }
   
-  if (iter == passwords->map.end()) {
+  if (iter == passwords->end()) {
     throw std::runtime_error("No password name contains the substring \"" + substring.to_string() + "\"");
   } else {
     return iter;
@@ -426,7 +435,7 @@ void CommandInterpreter::createCommand(std::experimental::string_view arguments)
   nextArg(arguments, "create <name> <new_password>");
   const std::string password = readString(arguments);
   
-  if (!passwords->map.emplace(std::move(name), std::move(password)).second) {
+  if (!passwords->emplace(std::move(name), std::move(password)).second) {
     std::cout << "Entry was not created. A password with the name \"" << name << "\" already exists\n";
     return;
   }
@@ -449,7 +458,7 @@ void CommandInterpreter::createGenCommand(std::experimental::string_view argumen
   
   const std::string password = generatePassword(length);
   
-  if (!passwords->map.emplace(std::move(name), std::move(password)).second) {
+  if (!passwords->emplace(std::move(name), std::move(password)).second) {
     std::cout << "Entry was not created. A password with the name \"" << name << "\" already exists\n";
     return;
   }
@@ -481,18 +490,90 @@ void CommandInterpreter::changeSCommand(std::experimental::string_view arguments
   nextArg(arguments, "change_s <index> <new_password>");
   const std::string password = readString(arguments);
   
-  if (index >= passwords->searchResults.size()) {
-    std::cout << "Index out of range\n";
+  const auto entry = getFromIndex(index);
+  
+  entry->second = std::move(password);
+  
+  std::cout << "Changed \"" << entry->first << "\" password\n";
+}
+
+Passwords::iterator CommandInterpreter::getFromIndex(const size_t index) {
+  if (index >= searchResults.size()) {
+    throw std::runtime_error("Index out of range\n");
+  }
+  
+  auto iter = passwords->find(searchResults[index]);
+  if (iter == passwords->end()) {
+    throw std::runtime_error("Entry \"" + searchResults[index] + "\" has been removed since the search\n");
+  }
+  
+  return iter;
+}
+
+void CommandInterpreter::renameCommand(std::experimental::string_view arguments) {
+  expectInit();
+  
+  nextArg(arguments, "rename <name> <new_name>");
+  const std::string name = readString(arguments);
+  
+  nextArg(arguments, "rename <name> <new_name>");
+  const std::string newName = readString(arguments);
+  
+  const auto entry = uniqueSearch(name);
+  
+  auto newEntry = passwords->find(newName);
+  if (newEntry != passwords->end()) {
+    std::cout << "Cannot rename \"" << entry->first << "\" to \"" << newName << "\" because that name is taken\n";
     return;
   }
   
-  auto iter = passwords->map.find(passwords->searchResults[index]);
-  if (iter == passwords->map.end()) {
-    std::cout << "Entry \"" << passwords->searchResults[index] << "\" has been removed since the search\n";
+  std::cout << "Renamed \"" << entry->first << "\" to \"" << newName << "\"\n";
+  
+  passwords->emplace(std::move(newName), std::move(entry->second));
+  passwords->erase(entry);
+}
+
+void CommandInterpreter::renameSCommand(std::experimental::string_view arguments) {
+  expectInit();
+  
+  nextArg(arguments, "rename_s <index> <new_name>");
+  const size_t index = readNumber(arguments);
+  
+  nextArg(arguments, "rename_s <index> <new_name>");
+  const std::string newName = readString(arguments);
+  
+  const auto entry = getFromIndex(index);
+  
+  auto newEntry = passwords->find(newName);
+  if (newEntry != passwords->end()) {
+    std::cout << "Cannot rename \"" << entry->first << "\" to \"" << newName << "\" because that name is taken\n";
     return;
   }
   
-  iter->second = std::move(password);
+  std::cout << "Renamed \"" << entry->first << "\" to \"" << newName << "\"\n";
   
-  std::cout << "Changed \"" << iter->first << "\" password\n";
+  passwords->emplace(std::move(newName), std::move(entry->second));
+  passwords->erase(entry);
+}
+
+void CommandInterpreter::getCommand(std::experimental::string_view arguments) {
+  expectInit();
+  
+  nextArg(arguments, "get <name>");
+  const std::string name = readString(arguments);
+  
+  const auto entry = uniqueSearch(name);
+  
+  std::cout << "Password for \"" << entry->first << "\" is:\n" << entry->second << '\n';
+}
+
+void CommandInterpreter::getSCommand(std::experimental::string_view arguments) {
+  expectInit();
+  
+  nextArg(arguments, "get <index>");
+  const size_t index = readNumber(arguments);
+  
+  const auto entry = getFromIndex(index);
+  
+  std::cout << "Password for \"" << entry->first << "\" is:\n" << entry->second << '\n';
 }

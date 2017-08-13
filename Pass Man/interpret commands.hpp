@@ -9,6 +9,7 @@
 #ifndef interpret_commands_hpp
 #define interpret_commands_hpp
 
+#include <vector>
 #include "passwords.hpp"
 #include <experimental/optional>
 #include <experimental/string_view>
@@ -26,6 +27,7 @@ private:
   size_t key = 0;
   std::string file;
   std::experimental::optional<Passwords> passwords;
+  std::vector<std::string> searchResults;
   bool quit = false;
   
   void openCommand(std::experimental::string_view);
@@ -40,12 +42,19 @@ private:
   void countCommand() const;
   void genCommand(std::experimental::string_view) const;
   
-  StrToStrMap::iterator uniqueSearch(std::experimental::string_view);
+  Passwords::iterator uniqueSearch(std::experimental::string_view);
   
   void createCommand(std::experimental::string_view);
   void createGenCommand(std::experimental::string_view);
   void changeCommand(std::experimental::string_view);
   void changeSCommand(std::experimental::string_view);
+  
+  Passwords::iterator getFromIndex(size_t);
+  
+  void renameCommand(std::experimental::string_view);
+  void renameSCommand(std::experimental::string_view);
+  void getCommand(std::experimental::string_view);
+  void getSCommand(std::experimental::string_view);
 };
 
 #endif

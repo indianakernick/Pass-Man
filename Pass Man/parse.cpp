@@ -20,7 +20,7 @@ file
 */
 
 Passwords readPasswords(std::experimental::string_view decryptedFile) {
-  StrToStrMap map;
+  Passwords passwords;
   
   constexpr size_t npos = std::experimental::string_view::npos;
   
@@ -40,17 +40,17 @@ Passwords readPasswords(std::experimental::string_view decryptedFile) {
     const auto val = getStr();
     if (val.empty()) throw std::runtime_error("Parse failed");
     
-    map.emplace(key.to_string(), val.to_string());
+    passwords.emplace(key.to_string(), val.to_string());
   }
   
-  return Passwords(std::move(map));
+  return passwords;
 }
 
 std::string writePasswords(const Passwords &passwords) {
   std::string decryptedFile;
   
-  const auto end = passwords.map.cend();
-  for (auto p = passwords.map.cbegin(); p != end; ++p) {
+  const auto end = passwords.cend();
+  for (auto p = passwords.cbegin(); p != end; ++p) {
     decryptedFile.append(p->first);
     decryptedFile.push_back('\0');
     decryptedFile.append(p->second);
