@@ -197,6 +197,14 @@ void CommandInterpreter::interpret(const std::experimental::string_view command)
     getCommand(command.substr(name.size()));
   } else if (COMMAND_IS(get_s)) {
     getSCommand(command.substr(name.size()));
+  } else if (COMMAND_IS(copy)) {
+    copyCommand(command.substr(name.size()));
+  } else if (COMMAND_IS(copy_s)) {
+    copySCommand(command.substr(name.size()));
+  } else if (COMMAND_IS(rem)) {
+    remCommand(command.substr(name.size()));
+  } else if (COMMAND_IS(rem_s)) {
+    remSCommand(command.substr(name.size()));
   } else {
     unknownCommand(command);
   }
@@ -436,7 +444,7 @@ void CommandInterpreter::createCommand(std::experimental::string_view arguments)
   const std::string password = readString(arguments);
   
   if (!passwords->emplace(std::move(name), std::move(password)).second) {
-    std::cout << "Entry was not created. A password with the name \"" << name << "\" already exists\n";
+    std::cout << "Entry was not created. A password for \"" << name << "\" already exists\n";
     return;
   }
   
@@ -455,11 +463,9 @@ void CommandInterpreter::createGenCommand(std::experimental::string_view argumen
   if (length == 0) {
     throw std::runtime_error("Invalid password length");
   }
-  
   const std::string password = generatePassword(length);
-  
   if (!passwords->emplace(std::move(name), std::move(password)).second) {
-    std::cout << "Entry was not created. A password with the name \"" << name << "\" already exists\n";
+    std::cout << "Entry was not created. A password for \"" << name << "\" already exists\n";
     return;
   }
   
@@ -491,7 +497,6 @@ void CommandInterpreter::changeSCommand(std::experimental::string_view arguments
   const std::string password = readString(arguments);
   
   const auto entry = getFromIndex(index);
-  
   entry->second = std::move(password);
   
   std::cout << "Changed \"" << entry->first << "\" password\n";
@@ -504,7 +509,7 @@ Passwords::iterator CommandInterpreter::getFromIndex(const size_t index) {
   
   auto iter = passwords->find(searchResults[index]);
   if (iter == passwords->end()) {
-    throw std::runtime_error("Entry \"" + searchResults[index] + "\" has been removed since the search\n");
+    throw std::runtime_error("Password for \"" + searchResults[index] + "\" has been removed since the search\n");
   }
   
   return iter;
@@ -520,7 +525,6 @@ void CommandInterpreter::renameCommand(std::experimental::string_view arguments)
   const std::string newName = readString(arguments);
   
   const auto entry = uniqueSearch(name);
-  
   auto newEntry = passwords->find(newName);
   if (newEntry != passwords->end()) {
     std::cout << "Cannot rename \"" << entry->first << "\" to \"" << newName << "\" because that name is taken\n";
@@ -543,7 +547,6 @@ void CommandInterpreter::renameSCommand(std::experimental::string_view arguments
   const std::string newName = readString(arguments);
   
   const auto entry = getFromIndex(index);
-  
   auto newEntry = passwords->find(newName);
   if (newEntry != passwords->end()) {
     std::cout << "Cannot rename \"" << entry->first << "\" to \"" << newName << "\" because that name is taken\n";
@@ -576,4 +579,50 @@ void CommandInterpreter::getSCommand(std::experimental::string_view arguments) {
   const auto entry = getFromIndex(index);
   
   std::cout << "Password for \"" << entry->first << "\" is:\n" << entry->second << '\n';
+}
+
+void CommandInterpreter::copyCommand(std::experimental::string_view arguments) {
+  expectInit();
+  
+  nextArg(arguments, "copy <name>");
+  const std::string name = readString(arguments);
+  
+  const auto entry = uniqueSearch(name);
+  writeToClipboard(entry->second);
+  
+  std::cout << "Password for \"" << entry->first << "\" was copied to the clipboard\n";
+}
+
+void CommandInterpreter::copySCommand(std::experimental::string_view arguments) {
+  expectInit();
+  
+  nextArg(arguments, "copy_s <index>");
+  const size_t index = readNumber(arguments);
+  
+  const auto entry = getFromIndex(index);
+  writeToClipboard(entry->second);
+  
+  std::cout << "Password for \"" << entry->first << "\" was copied to the clipboard\n";
+}
+
+void CommandInterpreter::remCommand(std::experimental::string_view arguments) {
+  expectInit();
+  
+  nextArg(arguments, "rem <name>");
+  const std::string name = readString(arguments);
+  
+  const auto entry = uniqueSearch(name);
+  std::cout << "Password for \"" << entry->first << "\" was removed from the database\n";
+  passwords->erase(entry);
+}
+
+void CommandInterpreter::remSCommand(std::experimental::string_view arguments) {
+  expectInit();
+  
+  nextArg(arguments, "rem_s <index>");
+  const size_t index = readNumber(arguments);
+  
+  const auto entry = getFromIndex(index);
+  std::cout << "Password for \"" << entry->first << "\" was removed from the database\n";
+  passwords->erase(entry);
 }

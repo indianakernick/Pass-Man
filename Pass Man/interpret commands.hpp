@@ -55,6 +55,11 @@ private:
   void renameSCommand(std::experimental::string_view);
   void getCommand(std::experimental::string_view);
   void getSCommand(std::experimental::string_view);
+  
+  void copyCommand(std::experimental::string_view);
+  void copySCommand(std::experimental::string_view);
+  void remCommand(std::experimental::string_view);
+  void remSCommand(std::experimental::string_view);
 };
 
 #endif
