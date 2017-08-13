@@ -38,7 +38,7 @@ Passwords readPasswords(std::experimental::string_view decryptedFile) {
     const auto key = getStr();
     if (key.empty()) break;
     const auto val = getStr();
-    if (val.empty()) break;
+    if (val.empty()) throw std::runtime_error("Parse failed");
     
     map.emplace(key.to_string(), val.to_string());
   }

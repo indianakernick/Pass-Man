@@ -30,13 +30,22 @@ private:
   
   void openCommand(std::experimental::string_view);
   void clearCommand();
-  void flushCommand();
+  void flushCommand() const;
   void quitCommand();
   
+  void expectInit() const;
+  
   void searchCommand(std::experimental::string_view);
-  void listCommand();
-  void countCommand();
-  void genCommand(std::experimental::string_view);
+  void listCommand() const;
+  void countCommand() const;
+  void genCommand(std::experimental::string_view) const;
+  
+  StrToStrMap::iterator uniqueSearch(std::experimental::string_view);
+  
+  void createCommand(std::experimental::string_view);
+  void createGenCommand(std::experimental::string_view);
+  void changeCommand(std::experimental::string_view);
+  void changeSCommand(std::experimental::string_view);
 };
 
 #endif

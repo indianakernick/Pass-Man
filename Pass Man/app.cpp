@@ -16,7 +16,7 @@ void runApp() {
   std::cout.exceptions(0xFF);
 
   CommandInterpreter interpreter;
-  char command[256];
+  char command[1024];
   do {
     interpreter.prefix();
     std::cin.getline(command, sizeof(command) / sizeof(char));
