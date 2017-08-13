@@ -40,9 +40,9 @@ std::string decryptFile(
   str.reserve(fileSize);
   std::rewind(file.get());
   
-  uint8_t b = std::fgetc(file.get());
-  while (b != uint8_t(EOF)) {
-    str.push_back(dist(gen) ^ b);
+  int b = std::fgetc(file.get());
+  while (b != EOF) {
+    str.push_back(dist(gen) ^ uint8_t(b));
     b = std::fgetc(file.get());
   }
   

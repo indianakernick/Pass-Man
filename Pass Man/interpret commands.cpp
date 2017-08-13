@@ -138,9 +138,8 @@ rem_s <index>
   }
   
   void genKeyCopyCommand() {
-    const uint64_t key = generateKey();
-    writeToClipboard(std::to_string(key));
-    std::cout << "Success!\n";
+    writeToClipboard(std::to_string(generateKey()));
+    std::cout << "An encryption key was copied to the clipboard\n";
   }
 }
 
@@ -458,7 +457,7 @@ Passwords::iterator CommandInterpreter::uniqueSearch(
       if (iter == passwords->end()) {
         iter = p;
       } else {
-        throw std::runtime_error("More that one password name contains the substring \"" + substring.to_string() + "\"");
+        throw std::runtime_error("More than one password name contains the substring \"" + substring.to_string() + "\"");
       }
     }
   }
