@@ -35,7 +35,6 @@
 /* Begin PBXFileReference section */
 		452B82C71F3AFD3C00AF9AC6 /* passman */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = passman; sourceTree = BUILT_PRODUCTS_DIR; };
 		452B82CA1F3AFD3C00AF9AC6 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		452B82D91F3B090200AF9AC6 /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../../../../../../usr/local/Cellar/sdl2/2.0.5/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
 		452B82DB1F3B0C1800AF9AC6 /* encrypt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = encrypt.cpp; sourceTree = "<group>"; };
 		452B82DC1F3B0C1800AF9AC6 /* encrypt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = encrypt.hpp; sourceTree = "<group>"; };
 		452B82DE1F3B106400AF9AC6 /* parse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parse.cpp; sourceTree = "<group>"; };
@@ -109,7 +108,6 @@
 		452B82D81F3B090200AF9AC6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				452B82D91F3B090200AF9AC6 /* libSDL2-2.0.0.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
