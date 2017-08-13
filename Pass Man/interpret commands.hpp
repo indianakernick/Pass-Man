@@ -35,6 +35,9 @@ private:
   void flushCommand() const;
   void quitCommand();
   
+  void quitNoFlushCommand();
+  void dumpCommand(std::experimental::string_view);
+  
   void expectInit() const;
   
   void searchCommand(std::experimental::string_view);

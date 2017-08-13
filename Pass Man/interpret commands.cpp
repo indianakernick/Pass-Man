@@ -9,6 +9,7 @@
 #include "interpret commands.hpp"
 
 #include <cstdlib>
+#include <fstream>
 #include <iostream>
 #include "parse.hpp"
 #include "encrypt.hpp"
@@ -39,6 +40,13 @@ flush
 
 quit
   Writes all changes to the file (if it exists) and exits.
+
+quit_no_flush
+  Exits without flushing changes.
+
+dump <file>
+  Writes all passwords into a file WITHOUT ENCRYPTING them. This command is
+  for changes to the tool that may break existing databases.
 
 search <sub_string>
   Searchs for passwords by name.
@@ -173,6 +181,10 @@ void CommandInterpreter::interpret(const std::experimental::string_view command)
     flushCommand();
   } else if (COMMAND_IS(quit)) {
     quitCommand();
+  } else if (COMMAND_IS(quit_no_flush)) {
+    quitNoFlushCommand();
+  } else if (COMMAND_IS(dump)) {
+    dumpCommand(command.substr(name.size()));
   } else if (COMMAND_IS(search)) {
     searchCommand(command.substr(name.size()));
   } else if (COMMAND_IS(list)) {
@@ -349,6 +361,30 @@ void CommandInterpreter::flushCommand() const {
 void CommandInterpreter::quitCommand() {
   flushCommand();
   quit = true;
+}
+
+void CommandInterpreter::quitNoFlushCommand() {
+  quit = true;
+}
+
+void CommandInterpreter::dumpCommand(std::experimental::string_view arguments) {
+  expectInit();
+  
+  nextArg(arguments, "dump <file>");
+  const std::string filePath = readString(arguments);
+  
+  std::ofstream file(filePath, std::ofstream::binary);
+  if (!file.is_open()) {
+    std::cout << "File open error\n";
+    return;
+  }
+  file.exceptions(0xFFFF);
+  
+  for (auto p = passwords->cbegin(); p != passwords->cend(); ++p) {
+    file << p->first << "\n    " << p->second << '\n';
+  }
+  
+  std::cout << "Database dumped to \"" << filePath << "\"\n";
 }
 
 void CommandInterpreter::expectInit() const {
